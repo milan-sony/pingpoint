@@ -7,6 +7,7 @@ def ping_monitor():
 
   command = "ping"
   ip_adddress = "google.com"
+  ping_value = 100
   data = ""
 
   output = subprocess.Popen([command, ip_adddress], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -19,7 +20,7 @@ def ping_monitor():
   avg_ping_value = data.split("Average =")[1].split("ms")[0]
   # print(avg_ping_value)
 
-  if int(avg_ping_value) >= 150:
+  if int(avg_ping_value) > ping_value:
     print("Ping is high" + avg_ping_value)
   else:
     print("ping is normal" + avg_ping_value)
@@ -46,6 +47,7 @@ def check_connection():
     print("Connected")
     ping_monitor()
   else:
+    print("not connected")
     pass
 
 while True:
