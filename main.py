@@ -1,4 +1,5 @@
 import subprocess
+from urllib.request import urlopen
 
 # function to monitor ping using the systems ping command
 def ping_monitor():
@@ -24,3 +25,17 @@ def ping_monitor():
   The next split() operation is split("ms"). We split the second part of the string obtained in the previous step at the substring "ms". This will give us a list with two elements: the time value and the part after "ms". We are interested in the time value, so we access it by using [0].
 
   """
+
+connection = 0
+
+try:
+  urlopen("https://www.google.com/", timeout=1)
+  connection = 1
+except:
+  connection = 0
+
+if connection == 1:
+  print("Connected")
+  ping_monitor()
+else:
+  print("not connected")
