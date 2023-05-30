@@ -1,6 +1,20 @@
 import subprocess
+# https://www.datacamp.com/tutorial/python-subprocess
 from urllib.request import urlopen
 from time import sleep
+from notifypy import Notify
+
+# desktop notification
+def desktop_notification(title, message):
+  notification_title = str(title)
+  notification_message = str(message)
+  notification = Notify()
+  notification.application_name = "PINGPOINT"
+  notification.title = notification_title
+  notification.message = notification_message
+  notification.icon = "./icon2.png"
+  # notification.audio = "./.wav"
+  notification.send()
 
 # function to monitor ping using the systems ping command
 def ping_monitor():
@@ -21,9 +35,14 @@ def ping_monitor():
   # print(avg_ping_value)
 
   if int(avg_ping_value) > ping_value:
-    print("Ping is high" + avg_ping_value)
+    desktop_notification(
+      "❗ High Ping",
+      f"Your internet ping is high {avg_ping_value} ms"
+    )
+    # print("Ping is high" + avg_ping_value)
   else:
-    print("ping is normal" + avg_ping_value)
+    # print("ping is normal" + avg_ping_value)
+    pass
 
   """
   To extract the time value, we use the split() method on the output string. The first split() operation is output.split("Average ="), which splits the string at the substring "Average =". This will result in a list with two elements: the part before "Average =" and the part after "Average =". We are interested in the part after "Average =", so we access it by using [1].
@@ -44,10 +63,10 @@ def check_connection():
     connection = 0
 
   if connection == 1:
-    print("Connected")
+    # print("Connected")
     ping_monitor()
   else:
-    print("not connected")
+    # print("not connected")
     pass
 
 while True:
