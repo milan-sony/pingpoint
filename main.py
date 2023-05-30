@@ -26,6 +26,7 @@ def ping_monitor():
 
   """
 
+# check whether the internet is connected or not
 connection = 0
 
 try:
