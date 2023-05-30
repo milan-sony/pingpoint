@@ -1,5 +1,6 @@
 import subprocess
 from urllib.request import urlopen
+from time import sleep
 
 # function to monitor ping using the systems ping command
 def ping_monitor():
@@ -12,11 +13,11 @@ def ping_monitor():
 
   for lines in output.communicate():
     data = data + lines
-  print(data)
+  # print(data)
 
   # Extract the value using string manipulation
   avg_ping_value = data.split("Average =")[1].split("ms")[0]
-  print(avg_ping_value)
+  # print(avg_ping_value)
 
   if int(avg_ping_value) >= 150:
     print("Ping is high" + avg_ping_value)
@@ -34,9 +35,9 @@ def ping_monitor():
 def check_connection():
 
   connection = 0
-  
+
   try:
-    urlopen("https://www.google.com/", timeout=1)
+    urlopen("https://www.google.com/")
     connection = 1
   except:
     connection = 0
@@ -45,4 +46,8 @@ def check_connection():
     print("Connected")
     ping_monitor()
   else:
-    print("not connected")
+    pass
+
+while True:
+  sleep(3)
+  check_connection()
